@@ -1,0 +1,926 @@
+/* =============================================
+   БАЗОВІ ЗМІННІ ТА НАЛАШТУВАННЯ
+   ============================================= */
+:root {
+    --color-primary: #5a4fcf;
+    --color-secondary: #00bbf9;
+    --color-accent: #fee440;
+    --color-bg-main: #eef2f5;
+    --color-bg-surface: #ffffff;
+    --color-text-main: #2b2d42;
+    --color-text-muted: #8d99ae;
+    --color-success: #00f5d4;
+    --color-error: #ff595e;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.07);
+    --shadow-btn: 0 6px 0 rgba(0, 0, 0, 0.1);
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
+
+body {
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: radial-gradient(circle at top right, #e3eeff 0%, #f3f7ff 100%);
+}
+
+.app-wrapper {
+    width: 99%;
+    max-width: 1400px;
+    height: 97vh;
+    background: var(--color-bg-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    overflow: hidden;
+}
+
+/* =============================================
+   SIDEBAR
+   ============================================= */
+.sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: linear-gradient(180deg, var(--color-primary) 0%, #3a30a1 100%);
+    color: white;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+.branding { text-align: center; margin-bottom: 1.5rem; }
+.branding h2 { font-size: 1.8rem; font-weight: 900; letter-spacing: 1px; color: var(--color-accent); }
+.branding p { font-size: 0.8rem; opacity: 0.8; }
+
+.nav-category {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.5;
+    margin: 1rem 0 0.4rem 0.5rem;
+}
+
+.navigation-menu { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.nav-btn {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid transparent;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-sm);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover { background: rgba(255,255,255,0.12); transform: translateX(4px); }
+.nav-btn.active { background: var(--color-accent); color: var(--color-text-main); box-shadow: var(--shadow-btn); }
+
+/* =============================================
+   CONTENT AREA
+   ============================================= */
+.content-area {
+    flex: 1;
+    padding: 2rem 3rem;
+    overflow-y: auto;
+}
+
+.game-section { display: none; animation: slideUpFade 0.4s ease forwards; }
+.game-section.active { display: block; }
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.section-header { text-align: center; margin-bottom: 2rem; }
+.section-header h2 { font-size: 2rem; color: var(--color-primary); }
+.section-header p { color: var(--color-text-muted); font-size: 1rem; margin-top: 0.4rem; }
+
+/* =============================================
+   КНОПКИ
+   ============================================= */
+.primary-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 0 5px 0 #3a30a1;
+    display: inline-block;
+    margin: 1rem 0.5rem 0;
+}
+.primary-btn:active { transform: translateY(5px); box-shadow: 0 0 0 #3a30a1; }
+.primary-btn:hover { opacity: 0.9; }
+
+.secondary-btn {
+    background: #f1f3f5;
+    color: var(--color-text-main);
+    border: 2px solid #dee2e6;
+    padding: 0.9rem 2rem;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-block;
+    margin: 1rem 0.5rem 0;
+}
+.secondary-btn:hover { background: #e9ecef; }
+
+.icon-btn {
+    background: #f1f3f5;
+    border: 2px solid #dee2e6;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+}
+.icon-btn:hover { background: #e9ecef; }
+
+.hidden { display: none !important; }
+
+/* =============================================
+   ГОЛОВНА СТОРІНКА
+   ============================================= */
+.hero-banner { text-align: center; max-width: 900px; margin: 0 auto; }
+.hero-icon { font-size: 4rem; margin-bottom: 1rem; }
+.hero-banner h1 { font-size: 2.2rem; color: var(--color-primary); margin-bottom: 1rem; }
+.hero-banner p { color: var(--color-text-muted); font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+.tags-container { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+.tech-tag {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.home-card {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    color: var(--color-text-main);
+}
+.home-card span { font-size: 0.85rem; text-align: center; }
+.home-card:hover { border-color: var(--color-primary); background: #f0eeff; transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+
+/* =============================================
+   ГРА 1: DRAG AND DROP
+   ============================================= */
+.draggable-items-pool {
+    display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;
+    background: #f8f9fa; padding: 1.2rem; border-radius: var(--radius-md);
+    border: 2px dashed #ced4da; min-height: 80px; margin-bottom: 1.5rem;
+}
+
+.draggable-item {
+    background: white; border: 2px solid var(--color-secondary);
+    color: var(--color-text-main); padding: 0.7rem 1.2rem;
+    border-radius: var(--radius-sm); font-weight: 700; cursor: grab;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s;
+    user-select: none;
+}
+.draggable-item:active { cursor: grabbing; transform: scale(0.95); }
+
+.drop-zones-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+.drop-zone {
+    background: white; border-radius: var(--radius-md); padding: 1.2rem;
+    box-shadow: var(--shadow-soft); text-align: center; border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+.drop-zone h3 { color: var(--color-text-muted); margin-bottom: 0.8rem; font-size: 1rem; }
+
+.drop-target-area {
+    min-height: 160px; background: #f8f9fa; border-radius: var(--radius-sm);
+    display: flex; flex-wrap: wrap; align-content: flex-start;
+    gap: 0.6rem; padding: 0.8rem; transition: background 0.3s;
+}
+.drop-target-area.drag-over { background: rgba(0,187,249,0.1); border: 2px dashed var(--color-secondary); }
+
+/* =============================================
+   ГРА 2: ВІКТОРИНА
+   ============================================= */
+.quiz-wrapper {
+    background: white; padding: 2.5rem; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft); max-width: 750px; margin: 0 auto;
+}
+
+.quiz-progress-bar {
+    height: 8px; background: #f1f3f5; border-radius: 10px; margin-bottom: 2rem; overflow: hidden;
+}
+#quiz-progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    border-radius: 10px; transition: width 0.5s ease; width: 0%;
+}
+
+.question-display { font-size: 1.4rem; font-weight: 800; margin-bottom: 1.8rem; text-align: center; line-height: 1.4; }
+
+.options-layout { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+
+.quiz-option-btn {
+    background: #f1f3f5; border: 2px solid #e9ecef; padding: 1rem 1.2rem;
+    border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600;
+    text-align: left; cursor: pointer; transition: all 0.2s;
+}
+.quiz-option-btn:hover { background: #e9ecef; border-color: #dee2e6; }
+.quiz-option-btn.correct-answer { background: var(--color-success); color: #004d40; border-color: #00bfa5; animation: pop 0.3s ease; }
+.quiz-option-btn.wrong-answer { background: var(--color-error); color: white; border-color: #d32f2f; animation: shake 0.4s ease; }
+
+@keyframes pop { 50% { transform: scale(1.02); } }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.quiz-status-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f1f3f5;
+    font-size: 1.1rem; font-weight: 700;
+}
+
+/* =============================================
+   ГРА 3: MEMORY
+   ============================================= */
+.memory-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem; max-width: 860px; margin: 0 auto; perspective: 1200px;
+}
+
+.memory-card {
+    height: 130px; position: relative; cursor: pointer;
+    transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.memory-card.is-flipped { transform: rotateY(180deg); }
+
+.card-face {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: var(--radius-md); display: flex; justify-content: center;
+    align-items: center; padding: 0.8rem; text-align: center;
+    font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+.card-back { background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); color: white; font-size: 2rem; }
+.card-front { background: white; color: var(--color-text-main); transform: rotateY(180deg); border: 3px solid var(--color-secondary); font-size: 1rem; line-height: 1.3; }
+
+.memory-status-bar { text-align: center; margin-top: 2rem; font-size: 1.2rem; font-weight: 800; display: flex; justify-content: center; align-items: center; gap: 2rem; }
+
+/* =============================================
+   ГРА 4: ДВІЙКОВИЙ КОД
+   ============================================= */
+.binary-game-wrapper {
+    background: white; padding: 2.5rem; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft); max-width: 700px; margin: 0 auto; text-align: center;
+}
+
+.binary-target-display { font-size: 1.2rem; font-weight: 700; margin-bottom: 2rem; color: var(--color-text-muted); }
+.binary-target-value { font-size: 3rem; font-weight: 900; color: var(--color-primary); display: block; margin-top: 0.5rem; }
+
+.binary-bits-row { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+
+.binary-bit-col { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+
+.binary-bit-label { font-size: 0.75rem; font-weight: 800; color: var(--color-text-muted); }
+
+.binary-bit-btn {
+    width: 60px; height: 60px; border-radius: var(--radius-sm);
+    border: 3px solid #dee2e6; background: #f8f9fa;
+    font-size: 1.5rem; font-weight: 900; cursor: pointer;
+    transition: all 0.2s; color: var(--color-text-muted);
+}
+.binary-bit-btn.active {
+    background: var(--color-primary); border-color: #3a30a1;
+    color: white; box-shadow: 0 4px 0 #3a30a1;
+}
+
+.binary-current-display { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; }
+.binary-current-display span { color: var(--color-primary); font-size: 1.8rem; }
+
+.binary-feedback {
+    padding: 1rem 1.5rem; border-radius: var(--radius-sm);
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;
+}
+.binary-feedback.success { background: #e0fff8; color: #004d40; border: 2px solid var(--color-success); }
+.binary-feedback.error { background: #fff0f0; color: #b71c1c; border: 2px solid var(--color-error); }
+
+.binary-score-row { display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; font-weight: 700; font-size: 1.1rem; }
+
+/* =============================================
+   ГРА 5: ЗБЕРИ ПК
+   ============================================= */
+.pc-builder-wrapper {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;
+}
+
+.pc-parts-pool {
+    background: #f8f9fa; border-radius: var(--radius-md);
+    border: 2px dashed #ced4da; padding: 1.2rem;
+    display: flex; flex-direction: column; gap: 0.7rem; min-height: 200px;
+}
+.pc-parts-pool h4 { color: var(--color-text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+
+.pc-part-item {
+    background: white; border: 2px solid var(--color-secondary);
+    padding: 0.7rem 1rem; border-radius: var(--radius-sm);
+    font-weight: 700; cursor: grab; transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.5rem;
+}
+.pc-part-item:active { cursor: grabbing; opacity: 0.6; }
+
+.pc-case {
+    background: linear-gradient(135deg, #2b2d42, #3a3c57);
+    border-radius: var(--radius-md); padding: 1.5rem; color: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.pc-case-title { text-align: center; font-weight: 800; font-size: 1.1rem; margin-bottom: 1rem; color: var(--color-accent); }
+
+.pc-slots { display: flex; flex-direction: column; gap: 0.8rem; }
+
+.pc-slot {
+    background: rgba(255,255,255,0.08); border: 2px dashed rgba(255,255,255,0.25);
+    border-radius: var(--radius-sm); padding: 0.8rem 1rem;
+    min-height: 50px; display: flex; align-items: center; gap: 0.5rem;
+    transition: all 0.3s; font-size: 0.9rem; color: rgba(255,255,255,0.5);
+    font-weight: 600;
+}
+.pc-slot.drag-over { background: rgba(0,187,249,0.2); border-color: var(--color-secondary); }
+.pc-slot.filled { background: rgba(0,245,212,0.15); border-color: var(--color-success); color: white; }
+.pc-slot.wrong { background: rgba(255,89,94,0.2); border-color: var(--color-error); animation: shake 0.4s ease; }
+
+.pc-feedback {
+    text-align: center; font-size: 1.1rem; font-weight: 700;
+    padding: 0.8rem; border-radius: var(--radius-sm); min-height: 40px;
+}
+
+/* =============================================
+   ГРА 6: ШВИДКОДРУК
+   ============================================= */
+.typer-wrapper {
+    background: white; padding: 2.5rem; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft); max-width: 750px; margin: 0 auto;
+}
+
+.typer-stats-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-bottom: 2rem;
+}
+.typer-stat {
+    background: #f8f9fa; border-radius: var(--radius-sm); padding: 1rem;
+    text-align: center;
+}
+.typer-stat-val { font-size: 2rem; font-weight: 900; color: var(--color-primary); }
+.typer-stat-label { font-size: 0.8rem; color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; }
+
+.typer-text-display {
+    background: #f8f9fa; padding: 1.5rem; border-radius: var(--radius-sm);
+    font-size: 1.2rem; line-height: 1.8; margin-bottom: 1rem; min-height: 80px;
+    border: 2px solid #e9ecef; letter-spacing: 0.5px;
+}
+.typer-char { position: relative; }
+.typer-char.correct { color: var(--color-primary); }
+.typer-char.wrong { color: var(--color-error); text-decoration: underline; background: #fff0f0; }
+.typer-char.current { background: var(--color-accent); border-radius: 2px; }
+
+.typer-input {
+    width: 100%; padding: 1rem 1.2rem; border: 2px solid #dee2e6;
+    border-radius: var(--radius-sm); font-size: 1.1rem; font-family: 'Nunito', sans-serif;
+    outline: none; transition: border-color 0.2s;
+}
+.typer-input:focus { border-color: var(--color-primary); }
+.typer-input:disabled { background: #f8f9fa; }
+
+/* =============================================
+   ГРА 7: ОДИНИЦІ ІНФОРМАЦІЇ
+   ============================================= */
+.units-wrapper {
+    background: white; padding: 2.5rem; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft); max-width: 700px; margin: 0 auto;
+}
+.units-score-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f1f3f5; font-size: 1.1rem; font-weight: 700; }
+
+/* =============================================
+   ГРА 8: НАДІЙНИЙ ПАРОЛЬ
+   ============================================= */
+.password-wrapper {
+    background: white; padding: 2.5rem; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft); max-width: 600px; margin: 0 auto;
+}
+
+.password-input-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.password-field {
+    flex: 1; padding: 1rem 1.2rem; border: 2px solid #dee2e6;
+    border-radius: var(--radius-sm); font-size: 1.1rem; font-family: 'Nunito', sans-serif;
+    outline: none; transition: border-color 0.2s;
+}
+.password-field:focus { border-color: var(--color-primary); }
+
+.password-strength-bar {
+    height: 10px; background: #f1f3f5; border-radius: 10px; margin-bottom: 0.5rem; overflow: hidden;
+}
+#pass-strength-fill {
+    height: 100%; width: 0%; border-radius: 10px;
+    transition: width 0.4s ease, background 0.4s ease;
+}
+
+.pass-strength-label { font-weight: 700; font-size: 1rem; margin-bottom: 1.5rem; color: var(--color-text-muted); }
+
+.password-criteria { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+.criteria-item { font-size: 0.95rem; font-weight: 600; padding: 0.5rem 0.8rem; border-radius: var(--radius-sm); background: #f8f9fa; transition: all 0.3s; }
+.criteria-item.met { background: #e0fff8; color: #004d40; }
+
+.gen-pass-display {
+    margin-top: 1rem; padding: 1rem 1.2rem; background: #f0eeff;
+    border: 2px solid var(--color-primary); border-radius: var(--radius-sm);
+    font-size: 1.2rem; font-weight: 700; text-align: center;
+    letter-spacing: 1px; word-break: break-all; color: var(--color-primary);
+}
+
+/* =============================================
+   ГРА 9: РОЗПІЗНАЙ ФІШИНГ
+   ============================================= */
+.phishing-wrapper { max-width: 700px; margin: 0 auto; }
+
+.phishing-email-card {
+    background: white; border-radius: var(--radius-md); box-shadow: var(--shadow-soft);
+    overflow: hidden; margin-bottom: 1.5rem; border: 2px solid #e9ecef;
+}
+
+.email-header-ui {
+    background: #f8f9fa; padding: 1rem 1.5rem; border-bottom: 2px solid #e9ecef;
+}
+.email-from { font-size: 0.85rem; color: var(--color-text-muted); font-weight: 600; margin-bottom: 0.3rem; }
+.email-subject { font-size: 1.1rem; font-weight: 800; color: var(--color-text-main); }
+.email-body { padding: 1.5rem; font-size: 1rem; line-height: 1.7; color: var(--color-text-main); }
+
+.phishing-buttons { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; }
+.phishing-btn {
+    padding: 1rem 2rem; border-radius: var(--radius-md); border: none;
+    font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: all 0.2s;
+    flex: 1; max-width: 220px;
+}
+.safe-btn { background: var(--color-success); color: #004d40; box-shadow: 0 5px 0 #00bfa5; }
+.safe-btn:active { transform: translateY(5px); box-shadow: none; }
+.danger-btn { background: var(--color-error); color: white; box-shadow: 0 5px 0 #b71c1c; }
+.danger-btn:active { transform: translateY(5px); box-shadow: none; }
+
+.phishing-explanation {
+    padding: 1rem 1.5rem; border-radius: var(--radius-sm);
+    font-size: 1rem; font-weight: 600; line-height: 1.5; margin-bottom: 1rem;
+}
+.phishing-explanation.correct { background: #e0fff8; border: 2px solid var(--color-success); color: #004d40; }
+.phishing-explanation.wrong { background: #fff0f0; border: 2px solid var(--color-error); color: #b71c1c; }
+
+.phishing-score-row { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1.1rem; }
+
+/* =============================================
+   ГРА 10: БЕЗПЕЧНИЙ ЧАТ
+   ============================================= */
+.chat-wrapper { max-width: 650px; margin: 0 auto; }
+
+.chat-window {
+    background: #f0f4f8; border-radius: var(--radius-md); padding: 1.5rem;
+    min-height: 200px; margin-bottom: 1rem; display: flex;
+    flex-direction: column; gap: 0.8rem; border: 2px solid #e9ecef;
+}
+
+.chat-msg {
+    max-width: 75%; padding: 0.8rem 1.2rem; border-radius: 18px;
+    font-size: 1rem; font-weight: 600; line-height: 1.4;
+}
+.chat-msg.stranger { background: white; border-radius: 18px 18px 18px 4px; align-self: flex-start; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+.chat-msg.stranger::before { content: '👤 Незнайомець: '; font-size: 0.75rem; color: var(--color-text-muted); display: block; margin-bottom: 0.3rem; font-weight: 700; }
+
+.chat-options { display: grid; grid-template-columns: 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.chat-option-btn {
+    background: white; border: 2px solid #e9ecef; padding: 0.9rem 1.2rem;
+    border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 600;
+    text-align: left; cursor: pointer; transition: all 0.2s;
+}
+.chat-option-btn:hover { border-color: var(--color-primary); background: #f0eeff; }
+.chat-option-btn.correct-chat { background: #e0fff8; border-color: var(--color-success); color: #004d40; }
+.chat-option-btn.wrong-chat { background: #fff0f0; border-color: var(--color-error); color: #b71c1c; }
+
+.chat-feedback {
+    padding: 0.8rem 1.2rem; border-radius: var(--radius-sm);
+    font-size: 0.95rem; font-weight: 600; margin-bottom: 0.8rem;
+}
+.chat-feedback.ok { background: #e0fff8; border: 2px solid var(--color-success); color: #004d40; }
+.chat-feedback.bad { background: #fff0f0; border: 2px solid var(--color-error); color: #b71c1c; }
+
+.chat-score-row { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1.1rem; }
+
+/* =============================================
+   ГРА 11: ПРАВДА ЧИ МІФ
+   ============================================= */
+.tf-wrapper { max-width: 650px; margin: 0 auto; text-align: center; }
+
+.tf-card {
+    background: white; border-radius: var(--radius-md); padding: 3rem 2rem;
+    box-shadow: var(--shadow-soft); margin-bottom: 2rem; border: 3px solid #e9ecef;
+    transition: border-color 0.3s;
+}
+.tf-statement { font-size: 1.4rem; font-weight: 800; line-height: 1.5; color: var(--color-text-main); }
+
+.tf-buttons { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1.5rem; }
+.tf-btn {
+    padding: 1rem 2.5rem; border-radius: var(--radius-md); border: none;
+    font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: all 0.2s;
+}
+.truth-btn { background: var(--color-success); color: #004d40; box-shadow: 0 5px 0 #00bfa5; }
+.truth-btn:active { transform: translateY(5px); box-shadow: none; }
+.myth-btn { background: var(--color-error); color: white; box-shadow: 0 5px 0 #b71c1c; }
+.myth-btn:active { transform: translateY(5px); box-shadow: none; }
+
+.tf-explanation {
+    padding: 1rem 1.5rem; border-radius: var(--radius-sm);
+    font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+    text-align: left;
+}
+.tf-explanation.correct { background: #e0fff8; border: 2px solid var(--color-success); color: #004d40; }
+.tf-explanation.wrong { background: #fff0f0; border: 2px solid var(--color-error); color: #b71c1c; }
+
+.tf-score-row { display: flex; justify-content: center; align-items: center; gap: 1.5rem; font-weight: 700; font-size: 1.1rem; }
+
+/* =============================================
+   ГРА 12: АЛГОРИТМ КРОКІВ
+   ============================================= */
+.algo-wrapper { max-width: 650px; margin: 0 auto; }
+
+.algo-task {
+    background: #f0eeff; border: 2px solid var(--color-primary); padding: 1rem 1.5rem;
+    border-radius: var(--radius-sm); font-size: 1.1rem; font-weight: 700;
+    margin-bottom: 1.5rem; text-align: center;
+}
+
+.algo-steps-list { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.5rem; }
+
+.algo-step {
+    background: white; border: 2px solid #dee2e6; border-radius: var(--radius-sm);
+    padding: 0.9rem 1.2rem; font-size: 1rem; font-weight: 600;
+    cursor: grab; display: flex; align-items: center; gap: 1rem;
+    transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.algo-step:active { cursor: grabbing; opacity: 0.7; }
+.algo-step.drag-over-step { border-color: var(--color-primary); background: #f0eeff; }
+.algo-step-num {
+    background: var(--color-primary); color: white; width: 28px; height: 28px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 800; flex-shrink: 0;
+}
+
+.algo-feedback {
+    padding: 1rem 1.5rem; border-radius: var(--radius-sm);
+    font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+}
+.algo-feedback.correct { background: #e0fff8; border: 2px solid var(--color-success); color: #004d40; }
+.algo-feedback.wrong { background: #fff0f0; border: 2px solid var(--color-error); color: #b71c1c; }
+
+.algo-btn-row { display: flex; gap: 1rem; align-items: center; }
+
+/* =============================================
+   ГРА 13: БЛОК-СХЕМА
+   ============================================= */
+.flowchart-wrapper { text-align: center; }
+
+.flowchart-shape-display {
+    display: flex; flex-direction: column; align-items: center;
+    margin-bottom: 2rem; gap: 0.5rem;
+}
+.flowchart-shape-display p { color: var(--color-text-muted); font-size: 1rem; font-weight: 600; }
+
+.flowchart-score-row { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 1.5rem; font-weight: 700; font-size: 1.1rem; }
+
+/* SVG shapes for flowchart */
+.fc-shape svg { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+
+/* =============================================
+   ГРА 14: ТОПОЛОГІЯ МЕРЕЖІ
+   ============================================= */
+.network-wrapper { text-align: center; }
+
+.network-canvas {
+    background: white; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft); border: 2px solid #e9ecef;
+    display: block; margin: 0 auto;
+}
+
+.network-score-row { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 1rem; font-weight: 700; font-size: 1.1rem; }
+
+/* =============================================
+   ГРА 15: ЗАПОВНИ КОД
+   ============================================= */
+.codefill-wrapper { max-width: 700px; margin: 0 auto; }
+
+.codefill-description {
+    background: #f0eeff; border-left: 4px solid var(--color-primary);
+    padding: 1rem 1.5rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 1.05rem; font-weight: 600; margin-bottom: 1.5rem;
+}
+
+.codefill-code {
+    background: #1e1e2e; color: #cdd6f4; padding: 1.5rem;
+    border-radius: var(--radius-md); font-family: 'Courier New', monospace;
+    font-size: 1rem; line-height: 1.8; margin-bottom: 1.5rem;
+    white-space: pre; overflow-x: auto;
+}
+
+.codefill-blank {
+    display: inline-block; background: rgba(254,228,64,0.3);
+    border: 2px dashed var(--color-accent); border-radius: 4px;
+    padding: 0 0.5rem; min-width: 80px; color: var(--color-accent);
+    font-weight: 700; text-align: center;
+}
+.codefill-blank.filled { background: rgba(0,245,212,0.2); border-color: var(--color-success); color: var(--color-success); }
+
+.codefill-options {
+    display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-bottom: 1rem;
+}
+.codefill-option-btn {
+    background: white; border: 2px solid #dee2e6; padding: 0.7rem 1.5rem;
+    border-radius: var(--radius-sm); font-size: 1rem; font-weight: 700;
+    cursor: pointer; font-family: 'Courier New', monospace; transition: all 0.2s;
+}
+.codefill-option-btn:hover { border-color: var(--color-primary); background: #f0eeff; }
+.codefill-option-btn.selected { background: var(--color-primary); color: white; border-color: #3a30a1; }
+
+.codefill-feedback {
+    padding: 0.8rem 1.2rem; border-radius: var(--radius-sm);
+    font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+}
+.codefill-feedback.correct { background: #e0fff8; border: 2px solid var(--color-success); color: #004d40; }
+.codefill-feedback.wrong { background: #fff0f0; border: 2px solid var(--color-error); color: #b71c1c; }
+
+.codefill-score-row { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1.1rem; }
+
+/* =============================================
+   ГРА 16: КРОСВОРД
+   ============================================= */
+.crossword-wrapper { max-width: 900px; margin: 0 auto; }
+
+.crossword-layout { display: grid; grid-template-columns: auto 1fr; gap: 2rem; margin-bottom: 1.5rem; align-items: start; }
+
+.crossword-grid { display: grid; gap: 2px; }
+
+.crossword-cell {
+    width: 38px; height: 38px; position: relative;
+}
+.crossword-cell.black { background: var(--color-text-main); border-radius: 3px; }
+.crossword-cell input {
+    width: 100%; height: 100%; border: 2px solid #dee2e6; border-radius: 3px;
+    text-align: center; font-size: 1rem; font-weight: 800; text-transform: uppercase;
+    font-family: 'Nunito', sans-serif; outline: none; background: white;
+    color: var(--color-text-main); cursor: pointer; transition: border-color 0.2s;
+}
+.crossword-cell input:focus { border-color: var(--color-primary); background: #f0eeff; }
+.crossword-cell input.correct-cell { background: #e0fff8; border-color: var(--color-success); color: #004d40; }
+.crossword-cell input.wrong-cell { background: #fff0f0; border-color: var(--color-error); color: #b71c1c; }
+
+.cell-number {
+    position: absolute; top: 1px; left: 2px; font-size: 0.55rem;
+    font-weight: 800; color: var(--color-primary); pointer-events: none; z-index: 1;
+}
+
+.crossword-clues { display: flex; flex-direction: column; gap: 1.5rem; }
+.clues-section h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--color-text-muted); margin-bottom: 0.7rem; font-weight: 800; }
+.clue-item { font-size: 0.9rem; font-weight: 600; padding: 0.4rem 0; border-bottom: 1px solid #f1f3f5; line-height: 1.4; }
+.clue-item strong { color: var(--color-primary); }
+
+.crossword-btn-row { display: flex; gap: 1rem; justify-content: center; }
+.crossword-result { margin-top: 1rem; padding: 1rem; border-radius: var(--radius-sm); text-align: center; font-size: 1.1rem; font-weight: 700; }
+.crossword-result.correct { background: #e0fff8; color: #004d40; }
+.crossword-result.partial { background: #fff8e1; color: #f57f17; }
+
+/* =============================================
+   ГРА 17: АНАГРАМА
+   ============================================= */
+.anagram-wrapper { max-width: 600px; margin: 0 auto; text-align: center; }
+
+.anagram-hint {
+    background: #f0eeff; border: 2px solid var(--color-primary); padding: 1rem;
+    border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600;
+    margin-bottom: 1.5rem; color: var(--color-primary);
+}
+
+.anagram-scrambled {
+    font-size: 2.5rem; font-weight: 900; letter-spacing: 8px;
+    color: var(--color-text-main); margin-bottom: 2rem;
+    padding: 1.5rem; background: white; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft); text-transform: uppercase;
+}
+
+.anagram-input {
+    width: 100%; padding: 1rem 1.2rem; border: 2px solid #dee2e6;
+    border-radius: var(--radius-sm); font-size: 1.2rem; font-family: 'Nunito', sans-serif;
+    text-align: center; outline: none; transition: border-color 0.2s;
+    font-weight: 700; text-transform: uppercase; margin-bottom: 1rem;
+}
+.anagram-input:focus { border-color: var(--color-primary); }
+
+.anagram-feedback {
+    padding: 0.8rem; border-radius: var(--radius-sm);
+    font-size: 1rem; font-weight: 700; margin-bottom: 1rem;
+}
+.anagram-feedback.correct { background: #e0fff8; color: #004d40; border: 2px solid var(--color-success); }
+.anagram-feedback.wrong { background: #fff0f0; color: #b71c1c; border: 2px solid var(--color-error); }
+
+.anagram-btn-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+
+/* =============================================
+   ГРА 18: ВГАДАЙ ПО КАРТИНЦІ
+   ============================================= */
+.guess-image-wrapper { text-align: center; }
+
+.guess-image-display {
+    width: 220px; height: 220px; margin: 0 auto 1.5rem;
+    background: white; border-radius: var(--radius-md); box-shadow: var(--shadow-soft);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem; border: 3px solid #e9ecef;
+}
+
+.guess-image-feedback {
+    padding: 0.8rem 1.2rem; border-radius: var(--radius-sm);
+    font-size: 1rem; font-weight: 600; margin: 0.8rem auto; max-width: 600px;
+}
+.guess-image-feedback.correct { background: #e0fff8; border: 2px solid var(--color-success); color: #004d40; }
+.guess-image-feedback.wrong { background: #fff0f0; border: 2px solid var(--color-error); color: #b71c1c; }
+
+.guess-image-score-row { display: flex; justify-content: center; align-items: center; gap: 1.5rem; font-weight: 700; font-size: 1.1rem; }
+
+/* =============================================
+   ГРА 19: ХРОНОЛОГІЯ
+   ============================================= */
+.timeline-wrapper { max-width: 700px; margin: 0 auto; }
+
+.timeline-instruction { color: var(--color-text-muted); font-size: 1rem; font-weight: 600; margin-bottom: 1rem; text-align: center; }
+
+.timeline-slots {
+    display: flex; flex-direction: column; gap: 0.6rem;
+    padding: 1.2rem; background: #f8f9fa; border-radius: var(--radius-md);
+    border: 2px dashed #ced4da; margin-bottom: 1.5rem; min-height: 100px;
+}
+
+.timeline-item {
+    background: white; border: 2px solid #dee2e6; border-radius: var(--radius-sm);
+    padding: 0.9rem 1.2rem; font-size: 1rem; font-weight: 700;
+    cursor: grab; display: flex; align-items: center; gap: 1rem;
+    transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.timeline-item:active { cursor: grabbing; opacity: 0.7; }
+.timeline-item.drag-over-tl { border-color: var(--color-primary); background: #f0eeff; }
+
+.timeline-item-year {
+    background: var(--color-primary); color: white; padding: 0.3rem 0.7rem;
+    border-radius: 6px; font-size: 0.85rem; font-weight: 800; flex-shrink: 0;
+}
+
+.timeline-feedback {
+    padding: 1rem 1.5rem; border-radius: var(--radius-sm);
+    font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+}
+.timeline-feedback.correct { background: #e0fff8; border: 2px solid var(--color-success); color: #004d40; }
+.timeline-feedback.wrong { background: #fff0f0; border: 2px solid var(--color-error); color: #b71c1c; }
+
+.timeline-btn-row { display: flex; gap: 1rem; align-items: center; justify-content: center; }
+
+/* =============================================
+   ГРА 20: HANGMAN
+   ============================================= */
+.hangman-wrapper { max-width: 800px; margin: 0 auto; }
+
+.hangman-layout { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; }
+
+.hangman-hint {
+    background: #f0eeff; border: 2px solid var(--color-primary); padding: 0.7rem 1rem;
+    border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 600;
+    margin-bottom: 1rem; color: var(--color-primary);
+}
+
+.hangman-word-display {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: flex-end;
+}
+.hangman-letter-slot {
+    width: 36px; height: 40px; border-bottom: 3px solid var(--color-text-main);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 900; text-transform: uppercase;
+    transition: all 0.3s;
+}
+.hangman-letter-slot.space { border-bottom: none; width: 20px; }
+
+.hangman-wrong-label { font-size: 0.85rem; font-weight: 700; color: var(--color-text-muted); margin-bottom: 0.3rem; }
+.hangman-wrong-letters { font-size: 1rem; font-weight: 700; color: var(--color-error); min-height: 28px; margin-bottom: 1rem; letter-spacing: 4px; }
+
+.hangman-keyboard { display: flex; flex-wrap: wrap; gap: 0.3rem; max-width: 340px; margin-bottom: 1rem; }
+.hm-key {
+    width: 34px; height: 34px; border: 2px solid #dee2e6; border-radius: 6px;
+    background: white; font-size: 0.85rem; font-weight: 800; cursor: pointer;
+    transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+    text-transform: uppercase;
+}
+.hm-key:hover { background: #f0eeff; border-color: var(--color-primary); }
+.hm-key.used-correct { background: var(--color-success); border-color: #00bfa5; color: #004d40; cursor: default; }
+.hm-key.used-wrong { background: #f1f3f5; border-color: #dee2e6; color: #ced4da; cursor: default; }
+
+.hm-part { transition: opacity 0.4s; }
+.hm-part.hidden { display: none; }
+
+.hangman-status {
+    padding: 1rem; border-radius: var(--radius-sm); font-size: 1.1rem;
+    font-weight: 800; text-align: center; margin-bottom: 0.8rem;
+}
+.hangman-status.won { background: #e0fff8; color: #004d40; border: 2px solid var(--color-success); }
+.hangman-status.lost { background: #fff0f0; color: #b71c1c; border: 2px solid var(--color-error); }
+
+/* =============================================
+   ГРА 21: ЕМОДЗІ-КОД
+   ============================================= */
+.emoji-wrapper { text-align: center; }
+
+.emoji-display {
+    font-size: 4rem; margin-bottom: 2rem; padding: 1.5rem 2rem;
+    background: white; border-radius: var(--radius-md); box-shadow: var(--shadow-soft);
+    display: inline-block; letter-spacing: 1rem; border: 2px solid #e9ecef;
+}
+
+.emoji-feedback {
+    padding: 0.8rem 1.2rem; border-radius: var(--radius-sm);
+    font-size: 1rem; font-weight: 600; margin: 0.8rem auto; max-width: 600px;
+}
+.emoji-feedback.correct { background: #e0fff8; border: 2px solid var(--color-success); color: #004d40; }
+.emoji-feedback.wrong { background: #fff0f0; border: 2px solid var(--color-error); color: #b71c1c; }
+
+.emoji-score-row { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 1rem; font-weight: 700; font-size: 1.1rem; }
+
+/* =============================================
+   ГРА 22: WHACK-A-VIRUS
+   ============================================= */
+.whack-wrapper { text-align: center; max-width: 700px; margin: 0 auto; }
+
+.whack-stats {
+    display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem;
+    font-size: 1.1rem; font-weight: 700;
+}
+
+.whack-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1rem; max-width: 580px; margin: 0 auto 1.5rem;
+}
+
+.whack-hole {
+    background: #3a2a1a; border-radius: 50% 50% 40% 40%;
+    height: 80px; position: relative; cursor: pointer;
+    overflow: hidden; box-shadow: inset 0 8px 16px rgba(0,0,0,0.4);
+    transition: background 0.2s;
+}
+.whack-hole:hover { background: #4a3a2a; }
+
+.whack-item {
+    position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
+    font-size: 2.5rem; transition: bottom 0.15s ease-out;
+    cursor: pointer; user-select: none; line-height: 1;
+}
+.whack-item.visible { bottom: 5px; }
+.whack-item.hit { bottom: 5px; transform: translateX(-50%) scale(1.3) rotate(20deg); opacity: 0; transition: all 0.2s; }
+
+.whack-result {
+    padding: 1.5rem; border-radius: var(--radius-md); margin-top: 1rem;
+    font-size: 1.2rem; font-weight: 700;
+    background: #f0eeff; border: 2px solid var(--color-primary); color: var(--color-primary);
+}

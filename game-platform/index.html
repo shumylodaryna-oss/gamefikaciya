@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberEd — Інформатика НУШ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <aside class="sidebar">
+            <div class="branding">
+                <h2>Гейміфікована платформа з інформатики</h2>
+                <p>Інформатика</p>
+            </div>
+            <nav class="navigation-menu">
+                <button class="nav-btn active" data-target="home-screen">🏠 Головна</button>
+                <div class="nav-category">Апаратне забезпечення</div>
+                <button class="nav-btn" data-target="game-drag-drop">🖱️ Сортування пристроїв</button>
+                <button class="nav-btn" data-target="game-binary">🔢 Двійковий код</button>
+                <button class="nav-btn" data-target="game-pc-builder">🖥️ Збери комп'ютер</button>
+                <button class="nav-btn" data-target="game-speed-typer">⌨️ Швидкодрук</button>
+                <button class="nav-btn" data-target="game-units">📐 Одиниці інформації</button>
+                <div class="nav-category">Кібербезпека</div>
+                <button class="nav-btn" data-target="game-quiz">🛡️ Вікторина</button>
+                <button class="nav-btn" data-target="game-password">🔐 Надійний пароль</button>
+                <button class="nav-btn" data-target="game-phishing">🎣 Розпізнай фішинг</button>
+                <button class="nav-btn" data-target="game-safe-chat">💬 Безпечний чат</button>
+                <button class="nav-btn" data-target="game-true-false">✅ Правда чи міф?</button>
+                <div class="nav-category">Алгоритми та мережі</div>
+                <button class="nav-btn" data-target="game-memory">🧩 Інформаційна мозаїка</button>
+                <button class="nav-btn" data-target="game-algorithm">📋 Алгоритм кроків</button>
+                <button class="nav-btn" data-target="game-flowchart">🔀 Блок-схема</button>
+                <button class="nav-btn" data-target="game-network">🌐 Топологія мережі</button>
+                <div class="nav-category">Різне</div>
+                <button class="nav-btn" data-target="game-anagram">🔤 Анаграма</button>
+                <button class="nav-btn" data-target="game-guess-image">🖼️ Вгадай по картинці</button>
+                <button class="nav-btn" data-target="game-timeline">📅 Хронологія</button>
+                <button class="nav-btn" data-target="game-hangman">🎯 Вгадай слово</button>
+                <button class="nav-btn" data-target="game-emoji-decode">😀 Емодзі-код</button>
+                <button class="nav-btn" data-target="game-whack">🔨 Лови вірус!</button>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+
+            <!-- ГОЛОВНА -->
+            <section id="home-screen" class="game-section active">
+                <div class="hero-banner">
+                    <div class="hero-icon">🖥️</div>
+                    <h1>Вітаємо на освітній платформі!</h1>
+                    <p>Цей інтерактивний модуль допоможе тобі перевірити знання з основ інформатики. Обери гру в меню зліва, щоб розпочати.</p>
+                    <div class="tags-container">
+                        <span class="tech-tag">НУШ</span>
+                        <span class="tech-tag">Інтерактив</span>
+                        <span class="tech-tag">Гейміфікація</span>
+                    </div>
+                    <div class="home-grid">
+                        <div class="home-card" onclick="navigateTo('game-drag-drop')">🖱️<span>Сортування пристроїв</span></div>
+                        <div class="home-card" onclick="navigateTo('game-binary')">🔢<span>Двійковий код</span></div>
+                        <div class="home-card" onclick="navigateTo('game-password')">🔐<span>Надійний пароль</span></div>
+                        <div class="home-card" onclick="navigateTo('game-phishing')">🎣<span>Розпізнай фішинг</span></div>
+                        <div class="home-card" onclick="navigateTo('game-algorithm')">📋<span>Алгоритм</span></div>
+                        <div class="home-card" onclick="navigateTo('game-whack')">🔨<span>Лови вірус!</span></div>
+                        <div class="home-card" onclick="navigateTo('game-hangman')">🎯<span>Вгадай слово</span></div>
+                        <div class="home-card" onclick="navigateTo('game-emoji-decode')">😀<span>Емодзі-код</span></div>
+                        <div class="home-card" onclick="navigateTo('game-quiz')">🛡️<span>Вікторина</span></div>
+                        <div class="home-card" onclick="navigateTo('game-memory')">🧩<span>Мозаїка</span></div>
+                        <div class="home-card" onclick="navigateTo('game-timeline')">📅<span>Хронологія</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 1: Drag and Drop -->
+            <section id="game-drag-drop" class="game-section">
+                <header class="section-header">
+                    <h2>🖱️ Сортування пристроїв</h2>
+                    <p>Перетягни пристрій у відповідну категорію: введення чи виведення даних.</p>
+                </header>
+                <div class="drag-workspace">
+                    <div class="draggable-items-pool" id="items-pool"></div>
+                    <div class="drop-zones-container">
+                        <div class="drop-zone" id="input-devices" data-category="input">
+                            <h3>📥 Пристрої введення</h3>
+                            <div class="drop-target-area"></div>
+                        </div>
+                        <div class="drop-zone" id="output-devices" data-category="output">
+                            <h3>📤 Пристрої виведення</h3>
+                            <div class="drop-target-area"></div>
+                        </div>
+                    </div>
+                </div>
+                <button id="btn-restart-drag" class="primary-btn">🔄 Почати спочатку</button>
+            </section>
+
+            <!-- ГРА 2: Вікторина -->
+            <section id="game-quiz" class="game-section">
+                <header class="section-header">
+                    <h2>🛡️ Кібербезпека та мережевий етикет</h2>
+                    <p>Прочитай запитання та обери єдиний правильний варіант відповіді.</p>
+                </header>
+                <div class="quiz-wrapper">
+                    <div class="quiz-progress-bar"><div id="quiz-progress-fill"></div></div>
+                    <div id="quiz-question-text" class="question-display"></div>
+                    <div id="quiz-options-container" class="options-layout"></div>
+                    <footer class="quiz-status-bar">
+                        <span id="quiz-score-display">Правильних відповідей: 0 / 4</span>
+                        <button id="btn-next-question" class="primary-btn hidden">Наступне →</button>
+                    </footer>
+                </div>
+            </section>
+
+            <!-- ГРА 3: Memory -->
+            <section id="game-memory" class="game-section">
+                <header class="section-header">
+                    <h2>🧩 Інформаційна мозаїка</h2>
+                    <p>Знайди логічну пару: поєднай технічний термін із його правильним визначенням.</p>
+                </header>
+                <div class="memory-grid" id="memory-game-board"></div>
+                <footer class="memory-status-bar">
+                    <span id="memory-moves-display">Кількість спроб: 0</span>
+                    <button id="btn-restart-memory" class="primary-btn">🔀 Перемішати картки</button>
+                </footer>
+            </section>
+
+            <!-- ГРА 4: Двійковий код -->
+            <section id="game-binary" class="game-section">
+                <header class="section-header">
+                    <h2>🔢 Двійковий код</h2>
+                    <p>Переведи число у двійкову систему! Клікай на біти щоб вмикати/вимикати їх.</p>
+                </header>
+                <div class="binary-game-wrapper">
+                    <div class="binary-target-display">
+                        Перетвори число <span id="binary-target-num" class="binary-target-value">0</span> у двійковий код:
+                    </div>
+                    <div class="binary-bits-row" id="binary-bits-row"></div>
+                    <div class="binary-current-display">
+                        Твоє число: <span id="binary-current-val">0</span>
+                    </div>
+                    <div id="binary-feedback" class="binary-feedback hidden"></div>
+                    <div class="binary-score-row">
+                        <span id="binary-score">Рахунок: 0 / 0</span>
+                        <button id="btn-check-binary" class="primary-btn">✔ Перевірити</button>
+                        <button id="btn-next-binary" class="primary-btn hidden">Наступне →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 5: Збери ПК -->
+            <section id="game-pc-builder" class="game-section">
+                <header class="section-header">
+                    <h2>🖥️ Збери комп'ютер</h2>
+                    <p>Перетягни компоненти у правильні слоти системного блоку.</p>
+                </header>
+                <div class="pc-builder-wrapper">
+                    <div class="pc-parts-pool" id="pc-parts-pool"></div>
+                    <div class="pc-case">
+                        <div class="pc-case-title">🖥️ Системний блок</div>
+                        <div class="pc-slots" id="pc-slots"></div>
+                    </div>
+                </div>
+                <div id="pc-feedback" class="pc-feedback"></div>
+                <button id="btn-restart-pc" class="primary-btn">🔄 Скинути</button>
+            </section>
+
+            <!-- ГРА 6: Швидкодрук -->
+            <section id="game-speed-typer" class="game-section">
+                <header class="section-header">
+                    <h2>⌨️ Швидкодрук</h2>
+                    <p>Набери текст якнайшвидше! Тренуй навички клавіатурного введення.</p>
+                </header>
+                <div class="typer-wrapper">
+                    <div class="typer-stats-row">
+                        <div class="typer-stat"><div class="typer-stat-val" id="typer-wpm">0</div><div class="typer-stat-label">слів/хв</div></div>
+                        <div class="typer-stat"><div class="typer-stat-val" id="typer-acc">100%</div><div class="typer-stat-label">точність</div></div>
+                        <div class="typer-stat"><div class="typer-stat-val" id="typer-time">60</div><div class="typer-stat-label">секунд</div></div>
+                    </div>
+                    <div id="typer-text-display" class="typer-text-display"></div>
+                    <input type="text" id="typer-input" class="typer-input" placeholder="Почни набирати тут..." autocomplete="off" spellcheck="false">
+                    <button id="btn-start-typer" class="primary-btn">▶ Почати</button>
+                </div>
+            </section>
+
+            <!-- ГРА 7: Одиниці інформації -->
+            <section id="game-units" class="game-section">
+                <header class="section-header">
+                    <h2>📐 Одиниці інформації</h2>
+                    <p>Вибери правильну відповідь для кожного питання про байти та біти.</p>
+                </header>
+                <div class="units-wrapper">
+                    <div id="units-question" class="question-display"></div>
+                    <div id="units-options" class="options-layout"></div>
+                    <div class="units-score-row">
+                        <span id="units-score">0 / 0</span>
+                        <button id="btn-next-units" class="primary-btn hidden">Далі →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 8: Надійний пароль -->
+            <section id="game-password" class="game-section">
+                <header class="section-header">
+                    <h2>🔐 Надійний пароль</h2>
+                    <p>Перевір наскільки надійний пароль і навчись створювати безпечні паролі!</p>
+                </header>
+                <div class="password-wrapper">
+                    <div class="password-input-row">
+                        <input type="password" id="password-input" class="password-field" placeholder="Введи пароль для перевірки..." autocomplete="off">
+                        <button id="btn-toggle-pass" class="icon-btn">👁️</button>
+                    </div>
+                    <div class="password-strength-bar"><div id="pass-strength-fill"></div></div>
+                    <div id="pass-strength-label" class="pass-strength-label">Введи пароль</div>
+                    <div class="password-criteria">
+                        <div class="criteria-item" id="crit-length">❌ Мінімум 8 символів</div>
+                        <div class="criteria-item" id="crit-upper">❌ Велика літера (A-Z)</div>
+                        <div class="criteria-item" id="crit-lower">❌ Мала літера (a-z)</div>
+                        <div class="criteria-item" id="crit-digit">❌ Цифра (0-9)</div>
+                        <div class="criteria-item" id="crit-special">❌ Спецсимвол (!@#$...)</div>
+                    </div>
+                    <button id="btn-gen-pass" class="primary-btn">✨ Згенерувати надійний пароль</button>
+                    <div id="gen-pass-display" class="gen-pass-display hidden"></div>
+                </div>
+            </section>
+
+            <!-- ГРА 9: Розпізнай фішинг -->
+            <section id="game-phishing" class="game-section">
+                <header class="section-header">
+                    <h2>🎣 Розпізнай фішинг</h2>
+                    <p>Перед тобою листи та повідомлення. Визнач — це безпечно чи фішинг?</p>
+                </header>
+                <div class="phishing-wrapper">
+                    <div class="phishing-email-card" id="phishing-card">
+                        <div class="email-header-ui">
+                            <div class="email-from" id="phishing-from"></div>
+                            <div class="email-subject" id="phishing-subject"></div>
+                        </div>
+                        <div class="email-body" id="phishing-body"></div>
+                    </div>
+                    <div class="phishing-buttons">
+                        <button class="phishing-btn safe-btn" id="btn-safe">✅ Безпечно</button>
+                        <button class="phishing-btn danger-btn" id="btn-phishing-pick">🎣 Фішинг!</button>
+                    </div>
+                    <div id="phishing-explanation" class="phishing-explanation hidden"></div>
+                    <div class="phishing-score-row">
+                        <span id="phishing-score">Рахунок: 0 / 0</span>
+                        <button id="btn-next-phishing" class="primary-btn hidden">Наступне →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 10: Безпечний чат -->
+            <section id="game-safe-chat" class="game-section">
+                <header class="section-header">
+                    <h2>💬 Безпечний чат</h2>
+                    <p>Незнайомець пише тобі в чаті. Обери правильну відповідь!</p>
+                </header>
+                <div class="chat-wrapper">
+                    <div class="chat-window" id="chat-window"></div>
+                    <div id="chat-options" class="chat-options"></div>
+                    <div id="chat-feedback" class="chat-feedback hidden"></div>
+                    <div class="chat-score-row">
+                        <span id="chat-score">Рахунок: 0 / 0</span>
+                        <button id="btn-next-chat" class="primary-btn hidden">Далі →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 11: Правда чи міф -->
+            <section id="game-true-false" class="game-section">
+                <header class="section-header">
+                    <h2>✅ Правда чи міф?</h2>
+                    <p>Визнач — це правдиве твердження чи міф про інформатику та інтернет?</p>
+                </header>
+                <div class="tf-wrapper">
+                    <div id="tf-card" class="tf-card">
+                        <div id="tf-statement" class="tf-statement"></div>
+                    </div>
+                    <div class="tf-buttons">
+                        <button class="tf-btn truth-btn" id="btn-truth">✅ Правда</button>
+                        <button class="tf-btn myth-btn" id="btn-myth">❌ Міф</button>
+                    </div>
+                    <div id="tf-explanation" class="tf-explanation hidden"></div>
+                    <div class="tf-score-row">
+                        <span id="tf-score">0 / 0</span>
+                        <button id="btn-next-tf" class="primary-btn hidden">Далі →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 12: Алгоритм кроків -->
+            <section id="game-algorithm" class="game-section">
+                <header class="section-header">
+                    <h2>📋 Алгоритм кроків</h2>
+                    <p>Розстав кроки алгоритму у правильному порядку перетягуванням.</p>
+                </header>
+                <div class="algo-wrapper">
+                    <div id="algo-task" class="algo-task"></div>
+                    <div id="algo-steps-list" class="algo-steps-list"></div>
+                    <div id="algo-feedback" class="algo-feedback hidden"></div>
+                    <div class="algo-btn-row">
+                        <button id="btn-check-algo" class="primary-btn">🔍 Перевірити</button>
+                        <button id="btn-next-algo" class="primary-btn hidden">Далі →</button>
+                    </div>
+                    <span id="algo-score">Рахунок: 0 / 0</span>
+                </div>
+            </section>
+
+            <!-- ГРА 13: Блок-схема -->
+            <section id="game-flowchart" class="game-section">
+                <header class="section-header">
+                    <h2>🔀 Блок-схема</h2>
+                    <p>Вибери правильну назву для кожного символу блок-схеми.</p>
+                </header>
+                <div class="flowchart-wrapper">
+                    <div id="flowchart-shape-display" class="flowchart-shape-display"></div>
+                    <div id="flowchart-options" class="options-layout" style="max-width:600px;margin:0 auto;"></div>
+                    <div class="flowchart-score-row">
+                        <span id="flowchart-score">0 / 0</span>
+                        <button id="btn-next-flowchart" class="primary-btn hidden">Далі →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 14: Топологія мережі -->
+            <section id="game-network" class="game-section">
+                <header class="section-header">
+                    <h2>🌐 Топологія мережі</h2>
+                    <p>Вгадай тип мережевої топології за малюнком.</p>
+                </header>
+                <div class="network-wrapper">
+                    <canvas id="network-canvas" class="network-canvas" width="500" height="280"></canvas>
+                    <div id="network-options" class="options-layout" style="max-width:500px;margin:1rem auto;"></div>
+                    <div class="network-score-row">
+                        <span id="network-score">0 / 0</span>
+                        <button id="btn-next-network" class="primary-btn hidden">Далі →</button>
+                    </div>
+                </div>
+            </section>
+            <!-- ГРА 17: Анаграма -->
+            <section id="game-anagram" class="game-section">
+                <header class="section-header">
+                    <h2>🔤 Анаграма</h2>
+                    <p>Переставте літери щоб утворити правильний термін з інформатики!</p>
+                </header>
+                <div class="anagram-wrapper">
+                    <div id="anagram-hint" class="anagram-hint"></div>
+                    <div id="anagram-scrambled" class="anagram-scrambled"></div>
+                    <input type="text" id="anagram-input" class="anagram-input" placeholder="Твоя відповідь..." autocomplete="off">
+                    <div id="anagram-feedback" class="anagram-feedback hidden"></div>
+                    <div class="anagram-btn-row">
+                        <button id="btn-check-anagram" class="primary-btn">✔ Перевірити</button>
+                        <button id="btn-hint-anagram" class="secondary-btn">💡 Підказка</button>
+                        <button id="btn-next-anagram" class="primary-btn hidden">Далі →</button>
+                    </div>
+                    <span id="anagram-score">Рахунок: 0 / 0</span>
+                </div>
+            </section>
+
+            <!-- ГРА 18: Вгадай по картинці -->
+            <section id="game-guess-image" class="game-section">
+                <header class="section-header">
+                    <h2>🖼️ Вгадай по картинці</h2>
+                    <p>Що зображено? Вибери правильну відповідь!</p>
+                </header>
+                <div class="guess-image-wrapper">
+                    <div id="guess-image-display" class="guess-image-display"></div>
+                    <div id="guess-image-options" class="options-layout" style="max-width:600px;margin:1rem auto;"></div>
+                    <div id="guess-image-feedback" class="guess-image-feedback hidden"></div>
+                    <div class="guess-image-score-row">
+                        <span id="guess-image-score">0 / 0</span>
+                        <button id="btn-next-guess" class="primary-btn hidden">Далі →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 19: Хронологія -->
+            <section id="game-timeline" class="game-section">
+                <header class="section-header">
+                    <h2>📅 Хронологія технологій</h2>
+                    <p>Розстав технологічні винаходи у хронологічному порядку перетягуванням.</p>
+                </header>
+                <div class="timeline-wrapper">
+                    <p class="timeline-instruction">Перетягни картки у правильний порядок (від найстарішого до найновішого):</p>
+                    <div id="timeline-slots" class="timeline-slots"></div>
+                    <div id="timeline-feedback" class="timeline-feedback hidden"></div>
+                    <div class="timeline-btn-row">
+                        <button id="btn-check-timeline" class="primary-btn">🔍 Перевірити</button>
+                        <button id="btn-next-timeline" class="primary-btn hidden">Далі →</button>
+                    </div>
+                    <span id="timeline-score">0 / 0</span>
+                </div>
+            </section>
+
+            <!-- ГРА 20: Вгадай слово (Hangman) -->
+            <section id="game-hangman" class="game-section">
+                <header class="section-header">
+                    <h2>🎯 Вгадай слово</h2>
+                    <p>Вгадай термін з інформатики, натискаючи літери. Маєш 6 спроб!</p>
+                </header>
+                <div class="hangman-wrapper">
+                    <div class="hangman-layout">
+                       
+                        <div class="hangman-right">
+                            <div id="hangman-hint" class="hangman-hint"></div>
+                            <div id="hangman-word-display" class="hangman-word-display"></div>
+                            <div class="hangman-wrong-label">Невірні літери:</div>
+                            <div id="hangman-wrong-letters" class="hangman-wrong-letters"></div>
+                            <div id="hangman-keyboard" class="hangman-keyboard"></div>
+                            <div id="hangman-status" class="hangman-status hidden"></div>
+                            <button id="btn-next-hangman" class="primary-btn hidden">🔄 Нове слово</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 21: Емодзі-код -->
+            <section id="game-emoji-decode" class="game-section">
+                <header class="section-header">
+                    <h2>😀 Емодзі-код</h2>
+                    <p>Кожне емодзі — це підказка. Вгадай термін з інформатики!</p>
+                </header>
+                <div class="emoji-wrapper">
+                    <div id="emoji-display" class="emoji-display"></div>
+                    <div id="emoji-options" class="options-layout" style="max-width:600px;margin:0 auto;"></div>
+                    <div id="emoji-feedback" class="emoji-feedback hidden"></div>
+                    <div class="emoji-score-row">
+                        <span id="emoji-score">0 / 0</span>
+                        <button id="btn-next-emoji" class="primary-btn hidden">Далі →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ГРА 22: Whack-a-Virus -->
+            <section id="game-whack" class="game-section">
+                <header class="section-header">
+                    <h2>🔨 Лови вірус!</h2>
+                    <p>Натискай на віруси якнайшвидше, але не чіпай корисні програми!</p>
+                </header>
+                <div class="whack-wrapper">
+                    <div class="whack-stats">
+                        <span>⏱ Час: <strong id="whack-time">30</strong>с</span>
+                        <span>🎯 Рахунок: <strong id="whack-score">0</strong></span>
+                        <span>❌ Промахи: <strong id="whack-misses">0</strong></span>
+                    </div>
+                    <div class="whack-grid" id="whack-grid"></div>
+                    <button id="btn-start-whack" class="primary-btn">▶ Почати гру</button>
+                    <div id="whack-result" class="whack-result hidden"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

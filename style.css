@@ -1,0 +1,475 @@
+/* 
+  ==============================================
+  ГЛОБАЛЬНІ НАЛАШТУВАННЯ ТА ЗМІННІ
+  ==============================================
+*/
+
+/* 
+  CSS-змінні (:root) дозволяють централізовано керувати кольорами 
+  та шрифтами. Зміна значення в одному місці оновить його на всьому сайті.
+*/
+:root {
+    --primary-color: #0056b3; /* Синій для акцентів */
+    --secondary-color: #f4f4f4; /* Світло-сірий фон */
+    --text-color: #333; /* Основний колір тексту */
+    --card-bg: #ffffff; /* Колір фону карток */
+    --header-bg: #ffffff;
+    --border-color: #ddd;
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* 
+  Скидання стилів та 'box-sizing'.
+  'box-sizing: border-box;' є золотим стандартом. Це змушує браузер 
+  включати 'padding' та 'border' в загальну ширину/висоту елемента, 
+  що значно спрощує верстку.
+*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* Плавний скролінг при натисканні на якірні посилання (наприклад, меню) */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--secondary-color); /* Світлий фон для всієї сторінки */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 
+  ==============================================
+  МАКЕТ СТОРІНКИ (CSS GRID)
+  ==============================================
+*/
+
+/* 
+  Використовуємо CSS Grid для основного макета сторінки. 
+  Це ідеальний інструмент для двовимірного позиціонування (рядки та стовпці).[28, 29]
+  Ми створюємо "каркас" для шапки, основного контенту та підвалу.
+*/
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Шапка(auto), контент(1fr), підвал(auto) */
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+    min-height: 100vh; /* Гарантує, що підвал буде внизу, навіть якщо контенту мало */
+}
+
+.site-header { grid-area: header; }
+#main-content { grid-area: main; }
+.site-footer { grid-area: footer; }
+
+/* 
+  ==============================================
+  ШАПКА ТА НАВІГАЦІЯ (FLEXBOX)
+  ==============================================
+*/
+
+/* 
+  Використовуємо Flexbox для шапки, оскільки нам потрібне лише 
+  одновимірне вирівнювання (в рядку).
+*/
+.site-header {
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    position: sticky; /* "Прилипаюча" шапка */
+    top: 0;
+    z-index: 100;
+}
+
+.site-header.container {
+    display: flex;
+    justify-content: space-between; /* Розміщує лого зліва, навігацію справа */
+    align-items: center; /* Вертикально центрує вміст */
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.logo span {
+    font-size: 0.9rem;
+    display: block;
+}
+
+/* 
+  СТИЛІ ДЛЯ МОБІЛЬНОЇ НАВІГАЦІЇ (Mobile-First) 
+*/
+.hamburger-menu {
+    display: block; /* Показаний за замовчуванням (на мобільних) */
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.nav-menu {
+    list-style: none;
+    position: absolute; /* Випадає поверх контенту */
+    top: 75px; /* Висота шапки */
+    left: 0;
+    width: 100%;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    
+    /* 
+      Приховано за межами екрану. Клас '.active' (який додає JS) 
+      змінить 'transform' для плавного "виїзду" меню.
+    */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Активний стан для мобільного меню (додається через JS) */
+.nav-menu.active {
+    transform: translateX(0);
+}
+
+.nav-menu li {
+    text-align: center;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.nav-menu li a {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.nav-menu li a:hover {
+    background-color: var(--secondary-color);
+}
+
+
+/* 
+  ==============================================
+  ОСНОВНИЙ КОНТЕНТ (УРОКИ)
+  ==============================================
+*/
+#main-content.container {
+    padding: 2rem 20px;
+}
+
+.lesson-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.lesson-card h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.lesson-card h3 {
+    color: var(--text-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.lesson-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+/* 
+  Елементи з цим класом будуть мати вигляд, що на них можна натиснути,
+  оскільки вони активують модальне вікно.
+*/
+.modal-trigger {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.modal-trigger:hover {
+    opacity: 0.8;
+}
+
+/* Стилі для іконок (Захист даних) */
+.icon-group {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin: 1rem 0;
+}
+.icon-group.icon {
+    width: 64px;
+    height: 64px;
+}
+.icon-group figcaption {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+/* Стилі для таблиці "Нетикет" */
+.rules-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+.rules-table th,.rules-table td {
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+    text-align: left;
+}
+.rules-table th {
+    background-color: var(--secondary-color);
+}
+.rules-table caption {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* 
+  Урок 2: Обтікання тексту [13]
+*/
+.float-left {
+    float: left;
+    margin: 0 1rem 1rem 0; /* Відступи справа і знизу, щоб текст не прилипав */
+    max-width: 150px;
+    border-radius: 4px;
+}
+
+/* 'clearfix' для зупинки обтікання [31] */
+.clear {
+    clear: both;
+}
+
+/* Галерея "Добре vs Погано" */
+.gallery {
+    display: flex;
+    flex-wrap: wrap; /* Дозволяє переносити на мобільних */
+    justify-content: space-around;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+.gallery figure {
+    flex-basis: 300px; /* Базова ширина кожного елемента */
+    text-align: center;
+}
+.gallery figure img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+.gallery figcaption {
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    color: #555;
+}
+
+/* 
+  ==============================================
+  ІНТЕРАКТИВНІ ЕЛЕМЕНТИ (ТЕСТ, МОДАЛКА)
+  ==============================================
+*/
+
+/* --- СТИЛІ ДЛЯ ТЕСТУ [26] --- */
+.cta-button, #submit-quiz {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+.cta-button:hover, #submit-quiz:hover {
+    background-color: #004494;
+}
+
+.quiz-question {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.quiz-answers {
+    margin-bottom: 1rem;
+}
+.quiz-answers label {
+    display: block; /* Кожна відповідь на новому рядку */
+    margin: 0.5rem 0;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+.quiz-answers label:hover {
+    background-color: var(--secondary-color);
+}
+.quiz-answers input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+/* Класи, які JavaScript додасть для показу результатів */
+#quiz-results {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.correct-answer {
+    color: green;
+}
+.wrong-answer {
+    color: red;
+}
+
+/* --- СТИЛІ ДЛЯ МОДАЛЬНОГО ВІКНА  --- */
+.modal {
+    display: none; /* Приховано за замовчуванням */
+    position: fixed; /* Залишається на місці при скролінгу */
+    z-index: 1000; /* Поверх усього контенту */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Дозволяє скролінг, якщо зображення велике */
+    background-color: rgba(0, 0, 0, 0.9); /* Чорний напівпрозорий фон */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    /* Анімація появи (збільшення)  */
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes zoom {
+    from {transform: translate(-50%, -50%) scale(0)}
+    to {transform: translate(-50%, -50%) scale(1)}
+}
+
+#modalCaption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close-modal-btn:hover {
+    color: #bbb;
+}
+
+/* 
+  ==============================================
+  ПІДВАЛ
+  ==============================================
+*/
+.site-footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 2rem; /* Відступ від основного контенту */
+}
+.site-footer p {
+    margin: 0.5rem 0;
+}
+
+/* 
+  ==============================================
+  АДАПТИВНІСТЬ (MEDIA QUERIES)
+  ==============================================
+*/
+
+/* 
+  Точка зупинки для планшетів (Tablet) [6]
+  Коли екран 768px або ширший...
+*/
+@media (min-width: 768px) {
+    /*...Приховуємо кнопку "гамбургер" */
+   .hamburger-menu {
+        display: none;
+    }
+    
+    /*...і показуємо звичайне меню */
+   .nav-menu {
+        position: static;
+        transform: none; /* Скидаємо 'transform' з мобільної версії */
+        display: flex;
+        width: auto;
+        background: none;
+        border: none;
+    }
+   .nav-menu li {
+        border: none;
+    }
+   .nav-menu li a {
+        padding: 0.5rem 1rem;
+    }
+   .nav-menu li a:hover {
+        background: none;
+        color: var(--primary-color);
+    }
+
+    /* Галерею можна зробити більшою */
+   .gallery figure {
+        flex-basis: 350px;
+    }
+}
+
+/* 
+  Точка зупинки для настільних комп'ютерів (Desktop)
+  Коли екран 1024px або ширший...
+*/
+@media (min-width: 1024px) {
+   .logo a {
+        font-size: 1.8rem;
+    }
+}
